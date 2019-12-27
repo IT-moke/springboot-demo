@@ -1,0 +1,65 @@
+CREATE TABLE `ss_organ` (
+  `organ_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '主键id',
+  `user_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '机构创建人id',
+  `organ_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '机构全称',
+  `organ_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '机构地址描述',
+  `country_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '0' COMMENT '国家id 对应area表主键id',
+  `state_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '0' COMMENT '省/州id',
+  `city_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '0' COMMENT '城市id',
+  `area_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '0' COMMENT '区id',
+  `coordinate` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '坐标',
+  `organ_phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '机构电话',
+  `founding_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '成立时间',
+  `credit_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '信用代码',
+  `business_license_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '营业执照',
+  `registered_capital` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '注册资本',
+  `legal_person_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '法人昵称',
+  `status` int(2) DEFAULT '0' COMMENT '机构状态 0.注销 1.正常',
+  PRIMARY KEY (`organ_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='机构表';
+
+
+CREATE TABLE `ss_counselor` (
+  `sc_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '主键id',
+  `user_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '用户id',
+  `organ_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '机构id',
+  `adept_type` int(1) DEFAULT '0' COMMENT '擅长类型',
+  `status` int(2) DEFAULT '1' COMMENT '顾问状态 0.注销 1.正常',
+  PRIMARY KEY (`sc_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='顾问机构关联表';
+
+CREATE TABLE `ss_product` (
+  `product_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '主键id',
+  `user_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '用户id',
+  `product_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '商品标题',
+  `product_main_imgs` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '商品轮播图',
+  `product_main_videos` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '商品介绍视频',
+  `current_price` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '当前价',
+  `original_price` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '原价',
+  `order_count` int(10) DEFAULT '0' COMMENT '预购人数',
+  `payment_count` int(10) DEFAULT '0' COMMENT '购买人数',
+  `status` int(2) DEFAULT '1' COMMENT '商品状态 0.注销 1.正常',
+  PRIMARY KEY (`product_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='商品表';
+
+CREATE TABLE `ss_user_product` (
+  `sup_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '主键id',
+  `user_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '用户id',
+  `product_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '商品id',
+  `sup_type` int(1) DEFAULT '0' COMMENT '1.预购 2.已购买',
+  `status` int(2) DEFAULT '1' COMMENT '商品状态 0.注销 1.正常',
+  PRIMARY KEY (`sup_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户与商品绑定表';
+
+
+CREATE TABLE `ss_fast_code` (
+  `sfc_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '主键id',
+  `sfc_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '快码type',
+  `sfc_code` int(10) DEFAULT '0' COMMENT '快码code',
+  `code_us` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '英文参数值',
+  `code_cn` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '中文参数值',
+  `status` int(2) DEFAULT '1' COMMENT '快码状态 0.删除 1.正常',
+  PRIMARY KEY (`sfc_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='快码表';
+
+
